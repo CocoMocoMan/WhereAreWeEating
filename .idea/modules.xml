@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WAWE.iml" filepath="$PROJECT_DIR$/WAWE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wawe.iml" filepath="$PROJECT_DIR$/wawe.iml" />
     </modules>
   </component>
 </project>
