@@ -1,5 +1,6 @@
 package alexa.handlers;
 
+import api.ZomataApi;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
@@ -16,10 +17,15 @@ public class DistanceIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String speechText = "Got it!";
+
+        ZomataApi zomataApi = new ZomataApi();
+        String response = zomataApi.search(1, 1, 1);
+
+        String speechText = response;
+
         return input.getResponseBuilder()
                 .withSpeech(speechText)
-                .withSimpleCard("Got it!", speechText)
+                .withSimpleCard(response, speechText)
                 .build();
     }
 
