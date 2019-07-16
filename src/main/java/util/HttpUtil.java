@@ -1,6 +1,7 @@
-package helpers;
+package main.java.util;
 
 
+import javafx.util.Pair;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -9,8 +10,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Map;
 
-public class HttpHelper {
+public class HttpUtil {
 
     public String requestPost(String url) {
 
@@ -45,10 +48,14 @@ public class HttpHelper {
 
     }
 
-    public String requestGet(String url) {
+    public String requestGet(String url, List<Map.Entry<String, String>> header) {
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(url);
+
+        for (Map.Entry<String, String> parameter : header) {
+            request.addHeader(parameter.getKey(), parameter.getValue());
+        }
 
         try {
 
