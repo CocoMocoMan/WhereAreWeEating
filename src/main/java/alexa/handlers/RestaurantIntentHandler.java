@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class DistanceIntentHandler implements RequestHandler {
+public class RestaurantIntentHandler implements RequestHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {
-        return input.matches(Predicates.intentName("DistanceIntent"));
+        return input.matches(Predicates.intentName("RestaurantIntent"));
     }
 
     @Override
