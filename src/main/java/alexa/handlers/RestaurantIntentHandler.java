@@ -1,5 +1,6 @@
 package main.java.alexa.handlers;
 
+import com.amazon.ask.request.RequestHelper;
 import main.java.api.ZomataApi;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
@@ -23,6 +24,10 @@ public class RestaurantIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
+
+        RequestHelper requestHelper = RequestHelper.forHandlerInput(input);
+        Optional<String> locationZip = requestHelper.getSlotValue("Location");
+        Optional<String> distanceMiles = requestHelper.getSlotValue("Distance");
 
         ZomataApi zomataApi = new ZomataApi();
         String response = zomataApi.search("32.962822", "-117.035866", "1000");
