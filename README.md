@@ -1,2 +1,2 @@
 # WhereAreWeEating
-Alexa skill that helps you face the toughest question: "Where are we eating?"
+Alexa skill that helps you face the world's toughest question: "Where are we eating?"
