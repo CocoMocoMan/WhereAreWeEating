@@ -1,5 +1,6 @@
 package main.java.alexa.handlers;
 
+import api.GeocodeApi;
 import com.amazon.ask.request.RequestHelper;
 import main.java.api.ZomataApi;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
@@ -29,10 +30,19 @@ public class RestaurantIntentHandler implements RequestHandler {
         Optional<String> locationZip = requestHelper.getSlotValue("Location");
         Optional<String> distanceMiles = requestHelper.getSlotValue("Distance");
 
+        System.out.println("zip code: " + locationZip.get());
+        GeocodeApi geocodeApi = new GeocodeApi();
+        String responseGeo = geocodeApi.zipCode(locationZip.get());
+        JSONObject responseJsonGeo = new JsonUtil().parseJson(responseGeo);
+        JSONObject location = responseJsonGeo.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
+
+        Double lat = location.getDouble("lat");
+        Double lon = location.getDouble("lng");
+
         ZomataApi zomataApi = new ZomataApi();
-        String response = zomataApi.search("32.962822", "-117.035866", "1000");
-        JSONObject responseJson = new JsonUtil().parseJson(response);
-        JSONArray restaurants = responseJson.getJSONArray("restaurants");
+        String responseZom = zomataApi.search(lat.toString(), lon.toString(), "1000");
+        JSONObject responseJsonZom = new JsonUtil().parseJson(responseZom);
+        JSONArray restaurants = responseJsonZom.getJSONArray("restaurants");
 
         int[] randTracker = new int[5];
         int i = 0;

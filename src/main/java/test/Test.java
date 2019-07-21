@@ -1,6 +1,6 @@
 package main.java.test;
 
-import api.model.Restaurant;
+import api.GeocodeApi;
 import main.java.api.ZomataApi;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,8 +14,16 @@ public class Test {
 
     public static void main (String[] argc) {
 
+        GeocodeApi geocodeApi = new GeocodeApi();
+        String responseGeo = geocodeApi.zipCode("92128");
+        JSONObject responseJsonGeo = new JsonUtil().parseJson(responseGeo);
+        JSONObject location = responseJsonGeo.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
+
+        Double lat = location.getDouble("lat");
+        Double lon = location.getDouble("lng");
+
         ZomataApi zomataApi = new ZomataApi();
-        String response = zomataApi.search("32.962822", "117.035866", "1000");
+        String response = zomataApi.search(lat.toString(), lon.toString(), "1000");
         JSONObject responseJson = new JsonUtil().parseJson(response);
         JSONArray restaurants = responseJson.getJSONArray("restaurants");
 

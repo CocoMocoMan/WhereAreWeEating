@@ -19,12 +19,12 @@ public class ZomataApi {
 
         List<Map.Entry<String, String>> header = new ArrayList<Map.Entry<String, String>>();
         header.add(new AbstractMap.SimpleEntry<String, String>("user-key", API_KEY));
-        header.add(new AbstractMap.SimpleEntry<String, String>("lat", lat));
-        header.add(new AbstractMap.SimpleEntry<String, String>("lon", lon));
-        header.add(new AbstractMap.SimpleEntry<String, String>("radius", radius));
+//        header.add(new AbstractMap.SimpleEntry<String, String>("lat", lat));
+//        header.add(new AbstractMap.SimpleEntry<String, String>("lon", lon));
+//        header.add(new AbstractMap.SimpleEntry<String, String>("radius", radius));
 
         HttpUtil http = new HttpUtil();
-        String response = http.requestGet(API_URL + SEARCH_API_URL, header);
+        String response = http.requestGetWithHeader(API_URL + SEARCH_API_URL + "?lat=" + lat + "&lon=" + lon + "&radius=" + radius, header);
 
         return response;
     }
